@@ -56,11 +56,11 @@
     padding-left: 1em;
 }
 
-#product_list .list_line_even {
+#product_list.list_line_even {
     background:   #e0f8f8;
 }
 
-#product_list .list_line_odd {
+#product_list.list_line_odd {
     background:   #f8b0f8;
 }
 
@@ -110,3 +110,4 @@
     font-weight: bold;
     margin-right: 2em;
 }
+    }
