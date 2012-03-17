@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Depot</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+  <head>
+    <title>Depot</title>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
 
-</head>
-<body>
+  </head>
 <body class='<%= controller.controller_name %>'>
 
 <%= yield %>
