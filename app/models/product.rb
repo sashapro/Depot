@@ -12,7 +12,7 @@ class Product < ActiveRecord::Base
     message: 'cannot be blank, product not saved'}
   validates :price,       numericality: { greater_than_or_equal_to: 0.01 }
   validates :title,       uniqueness: {
-   message: 'must be unique. Show some originality!' },
+   message: 'has already been taken' },
     length: {
    minimum: 10,
    maximum: 100,
