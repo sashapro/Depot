@@ -59,14 +59,20 @@ class LineItemsController < ApplicationController
   # PUT /line_items/1
   # PUT /line_items/1.json
   def update
-    @line_item = LineItem.find(params[:id])
-
+    @cart = current_cart
+    @line_item = @cart.delete_product(params[:id])
     respond_to do |format|
-      if @line_item.update_attributes(params[:line_item])
-        format.html { redirect_to @line_item, notice: 'Line item was successfully updated.' }
-        format.json { head :no_content }
+      if @line_item.save
+        if current_cart.line_items.empty?
+          format.html { redirect_to store_url, notice: 'Your cart is empty' }
+        else
+          format.html { redirect_to @line_item.cart, notice: 'Line item was successfully updated.' }
+          format.js {@current_item = @line_item}
+          format.json { head :ok }
+        end
       else
         format.html { render action: "edit" }
+        format.js {@current_item = @line_item}
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
@@ -79,7 +85,12 @@ class LineItemsController < ApplicationController
     @line_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to line_items_url }
+      if current_cart.line_items.empty?
+        format.html { redirect_to store_url, notice: 'Your cart is empty' }
+      else
+        format.html { redirect_to :back, notice: 'Item Removed' }
+      end
+
       format.json { head :no_content }
     end
   end
